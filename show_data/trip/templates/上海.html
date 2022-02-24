@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,
+user-scalable=no" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>汕头旅游数据</title>
+    <style>
+        .menu_list {
+            width: 268px;
+            margin: 0;
+        }
+        
+        .menu_head {
+            height: 47px;
+            line-height: 47px;
+            padding-left: 38px;
+            font-size: 14px;
+            color: #525252;
+            cursor: pointer;
+            border: 1px solid #f1f1f1;
+            position: relative;
+            margin: 0px;
+            font-weight: bold;
+            background: #51a9f18c;
+        }
+        
+        .menu_list .current {
+            background: #51a9f18c;
+        }
+        
+        .menu_nva {
+            line-height: 38px;
+            border-left: 1px solid #51a9f18c;
+            background: #fff;
+            border-right: 1px solid #51a9f18c;
+        }
+        
+        .menu_nva a {
+            display: block;
+            height: 38px;
+            line-height: 38px;
+            padding-left: 38px;
+            color: #777777;
+            background: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #51a9f18c;
+        }
+        
+        .menu_nva a:hover {
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+    <script>
+        L2Dwidget.init({
+            "model": {
+                jsonPath: "https://unpkg.com/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json",
+                "scale": 1
+            },
+            "display": {
+                "position": "left",
+                "width": 90,
+                "height": 120,
+                "hOffset": 0,
+                "vOffset": -20
+            },
+            "mobile": {
+                "show": true,
+                "scale": 0.5
+            },
+            "react": {
+                "opacityDefault": 0.8,
+                "opacityOnHover": 0.1
+            }
+        });
+    </script>
+    <!-- <div id="test"><iframe width="400" height="300" frameborder="0" src="https://cdn.abowman.com/widgets/hamster/hamster.html?up_bgColor=9d14e1&up_bodyColor=10100f&up_earColor=292823&up_snoutColor=0e0d0c&up_eyeColor=f6eeee&up_feetColor=dfb50c&up_tailColor=e6debe&up_waterColor=5f6367&up_foodColor=4b462f&up_wheelColor=8c3b3b&up_wheelOuterColor=ff4d4d&up_wheelCenterColor=e4eb2f&up_wheelSpokeColor=dedede"></iframe></div> -->
+    <!--小帅哥： https://unpkg.com/live2d-widget-model-chitose@1.0.5/assets/chitose.model.json-->
+    <!--萌娘：https://unpkg.com/live2d-widget-model-shizuku@1.0.5/assets/shizuku.model.json-->
+    <!--小可爱（女）：https://unpkg.com/live2d-widget-model-koharu@1.0.5/assets/koharu.model.json-->
+    <!--小可爱（男）：https://unpkg.com/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json-->
+    <!--初音：https://unpkg.com/live2d-widget-model-miku@1.0.5/assets/miku.model.json-->
+    <!-- 上边的不同链接显示的是不同的小人，这个可以根据需要来选择 下边的初始化部分，可以修改宽高来修改小人的大小，或者是鼠标移动到小人上的透明度，也可以修改小人在页面出现的位置。 -->
+</head>
+
+<body>
+    <!-- html  start-->
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">系统管理</h3>
+        <div style="display:block" class="menu_nva">
+            {% if flag == 1 %}
+            <a href="user">用户管理</a> {% endif %}
+            <a href="">日志管理</a>
+        </div>
+    </div>
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">数据查看</h3>
+        <div style="display:block" class="menu_nva">
+            <a href="汕头p1">汕头</a>
+            <a href="广州p1">广州</a>
+            <a href="北京p1">北京</a>
+            <a href="深圳p1">深圳</a>
+            <a href="上海p1">上海</a>
+            <a href="日本p1">日本</a>
+            <a href="select">搜索</a>
+        </div>
+    </div>
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">退出登录</h3>
+        <div style="display:block" class="menu_nva">
+            <a href="login">注销</a>
+        </div>
+    </div>
+
+    <!-- html  end-->
+    <div id="body1">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>门票名称</th>
+                    <th>门票链接</th>
+                    <th>门票价格</th>
+                    <th>平均评分</th>
+                    <th>出游人数</th>
+                    <th>点评数量</th>
+                </tr>
+            </thead>
+            {% for i in data %}
+            <tr>
+                <td>{{ i.name }}</td>
+                <td>{{ i.href }}</td>
+                <td>{{ i.price }}</td>
+                <td>{{ i.agree }}</td>
+                <td>{{ i.people }}</td>
+                <td>{{ i.about }}</td>
+            </tr>
+            {% endfor %}
+            <!-- script  代码-->
+        </table>
+    </div>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#firstpaneDiv .menu_nva:eq(0)").show();
+            $("#firstpaneDiv h3.menu_head").click(function() {
+                $(this).addClass("current").next("div.menu_nva").slideToggle(200).siblings("div.menu_nva").slideUp("slow");
+                $(this).siblings().removeClass("current");
+            });
+            $("#secondpane .menu_nva:eq(0)").show();
+            $("#secondpane h3.menu_head").mouseover(function() {
+                $(this).addClass("current").next("div.menu_nva").slideDown(400).siblings("div.menu_nva").slideUp("slow");
+                $(this).siblings().removeClass("current");
+            });
+        });
+    </script>
+    <!-- <div id="app">
+        <form action="login" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="注销登录" id='app3'>
+        </form>
+    </div> -->
+</body>
+<style type="text/css">
+    /*表格样式*/
+    
+    table {
+        width: 90%;
+        background: #ccc;
+        margin: 10px auto;
+        border-collapse: collapse;
+        /*border-collapse:collapse合并内外边距(去除表格单元格默认的2个像素内外边距*/
+    }
+    
+    th,
+    td {
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+    
+    th {
+        background: rgb(101, 196, 164);
+        font-weight: normal;
+    }
+    
+    tr {
+        background: rgb(192, 190, 211);
+    }
+    
+    tr:hover {
+        background: #cc0;
+    }
+    
+    td a {
+        color: #06f;
+        text-decoration: none;
+    }
+    
+    td a:hover {
+        color: #06f;
+        text-decoration: underline;
+    }
+</style>
+
+<style>
+    #body1 {
+        position: absolute;
+        left: 268px;
+        margin: 0 auto;
+        margin-top: -532px;
+    }
+    
+    #app {
+        line-height: 32px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-Index: 2;
+        /* padding:0 2em; */
+        -webkit-transform-origin: left bottom;
+        -moz-transform-origin: left bottom;
+        transform-origin: left bottom;
+        -webkit-transform: translate(9.29%, 0%);
+        -moz-transform: translate(9.29%, 0%);
+        transform: translate(9.29%, 0%);
+        text-indent: 0;
+    }
+</style>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0;url= 其它p1">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">正在爬取携程数据中</div>
+    <div id="wrapper">
+        <!-- 进度条容器 -->
+        <div id="progressbar">
+            <!-- 进度条 -->
+            <div id="fill"></div>
+        </div>
+    </div>
+    <script>
+        (function(){
+            var progressbar = {
+                init: function() {
+                    var fill = document.getElementById("fill");
+                    var count = ".";
+                    var count1 = 0
+                    var timer = setInterval(() => {
+                        count1++
+                        fill.innerHTML=count;
+                        if(count1===100){
+                            clearInterval(timer)
+                        }
+                    }, );
+                }
+            };
+            progressbar.init();
+        })()
+        </script>
+    <!-- <script>
+        onload=function () {
+            setInterval(go,1000)
+        };
+        var x=5;
+        btn.onclick=function go() {
+    
+            if (x>=0){
+                document.getElementById("sp").innerText=x;
+            }else {
+                location.href="汕头";
+            }
+            x--;
+        }
+    </script> -->
+</body>
+<style>
+#wrapper {
+    width: 200px;
+    height: 100px;
+    border: 1px solid #000000;
+    margin: 0 auto;
+    margin-top: 300px;
+}
+#progressbar {
+    width: 180px;
+    height: 20px;
+    margin: 0 auto;
+    margin-top: 40px;
+    border: 1px solid #000000;
+}
+/* 设置进度条动画 */
+#fill {
+    animation: move 20s;
+    text-align: center;
+    background-color: #6caf00;
+    color: #ffffff;
+}
+#app{
+    position: absolute;
+    left: 650px;
+    font-size: 25px;
+    margin: 0 auto;
+    margin-top: 115px;
+}
+/* 实现元素宽度过度的动画效果 */
+@keyframes move {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+</style>
+</html>

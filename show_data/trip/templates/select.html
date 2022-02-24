@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>管理页面</title>
+    <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS代码 -->
+
+    <style>
+        .menu_list {
+            width: 268px;
+            margin: 0;
+        }
+        
+        .menu_head {
+            height: 47px;
+            line-height: 47px;
+            padding-left: 38px;
+            font-size: 14px;
+            color: #525252;
+            cursor: pointer;
+            border: 1px solid #f1f1f1;
+            position: relative;
+            margin: 0px;
+            font-weight: bold;
+            background: #51a9f18c;
+        }
+        
+        .menu_list .current {
+            background: #51a9f18c;
+        }
+        
+        .menu_nva {
+            line-height: 38px;
+            border-left: 1px solid #51a9f18c;
+            background: #fff;
+            border-right: 1px solid #51a9f18c;
+        }
+        
+        .menu_nva a {
+            display: block;
+            height: 38px;
+            line-height: 38px;
+            padding-left: 38px;
+            color: #777777;
+            background: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #51a9f18c;
+        }
+        
+        .menu_nva a:hover {
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+    <script>
+        L2Dwidget.init({
+            "model": {
+                jsonPath: "https://unpkg.com/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json",
+                "scale": 1
+            },
+            "display": {
+                "position": "left",
+                "width": 90,
+                "height": 120,
+                "hOffset": 0,
+                "vOffset": -20
+            },
+            "mobile": {
+                "show": true,
+                "scale": 0.5
+            },
+            "react": {
+                "opacityDefault": 0.8,
+                "opacityOnHover": 0.1
+            }
+        });
+    </script>
+</head>
+
+
+
+<body>
+    <!-- html  start-->
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">系统管理</h3>
+        <div style="display:block" class="menu_nva">
+            {% if flag == 1 %}
+            <a href="user">用户管理</a> {% endif %}
+            <a href="">日志管理</a>
+        </div>
+    </div>
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">数据查看</h3>
+        <div style="display:block" class="menu_nva">
+            <a href="汕头p1">汕头</a>
+            <a href="广州p1">广州</a>
+            <a href="北京p1">北京</a>
+            <a href="深圳p1">深圳</a>
+            <a href="上海p1">上海</a>
+            <a href="日本p1">日本</a>
+            <a href="select">搜索</a>
+        </div>
+    </div>
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">退出登录</h3>
+        <div style="display:block" class="menu_nva">
+            <a href="login">注销</a>
+        </div>
+    </div>
+
+    <!-- html  end-->
+    <form action="搜索p1" method="POST">
+        {% csrf_token %}
+        <div id="app5">请输入你要搜索的旅游地点：</div>
+        <input type="text" name="data" id="app4">
+        <div id="app6">请输入你要搜索的门票页数：</div>
+        <input type="text" name="num" id="app7">
+        <input type="submit" value="搜索" id="app3">
+    </form>
+    <!-- script  代码-->
+
+    <!-- <script>
+        onload=function () {
+            setInterval(go,1000)
+        };
+        var x=4;
+        btn.onclick=function go() {
+    
+            if (x>=0){
+                document.getElementById("sp").innerText=x;
+            }else {
+                location.href="汕头";
+            }
+            x--;
+        }
+    </script> -->
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#firstpaneDiv .menu_nva:eq(0)").show();
+            $("#firstpaneDiv h3.menu_head").click(function() {
+                $(this).addClass("current").next("div.menu_nva").slideToggle(200).siblings("div.menu_nva").slideUp("slow");
+                $(this).siblings().removeClass("current");
+            });
+            $("#secondpane .menu_nva:eq(0)").show();
+            $("#secondpane h3.menu_head").mouseover(function() {
+                $(this).addClass("current").next("div.menu_nva").slideDown(400).siblings("div.menu_nva").slideUp("slow");
+                $(this).siblings().removeClass("current");
+            });
+        });
+    </script>
+</body>
+
+<style>
+    #body1 {
+        position: absolute;
+        left: 275px;
+        margin: 0 auto;
+        margin-top: -537px;
+    }
+    
+    #app3 {
+        position: absolute;
+        font-size: 15px;
+        right: 750px;
+        margin: 0 auto;
+        margin-top: -150px;
+        width: 150px;
+        height: 50px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    #app4 {
+        position: absolute;
+        font-size: 20px;
+        right: 550px;
+        margin: 0 auto;
+        margin-top: -250px;
+        /* padding: 20px 50px; */
+        width: 150px;
+        height: 25px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    #app5 {
+        position: absolute;
+        font-size: 25px;
+        right: 700px;
+        margin: 0 auto;
+        margin-top: -250px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    #app7 {
+        position: absolute;
+        font-size: 20px;
+        right: 550px;
+        margin: 0 auto;
+        margin-top: -200px;
+        /* padding: 20px 50px; */
+        width: 150px;
+        height: 25px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    #app6 {
+        position: absolute;
+        font-size: 25px;
+        right: 700px;
+        margin: 0 auto;
+        margin-top: -200px;
+        border-radius: 10px;
+        text-align: center;
+    }
+</style>
+
+</html>

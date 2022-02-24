@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理用户界面</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,
+user-scalable=no" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .menu_list {
+            width: 268px;
+            margin: 0;
+        }
+        
+        .menu_head {
+            height: 47px;
+            line-height: 47px;
+            padding-left: 38px;
+            font-size: 14px;
+            color: #525252;
+            cursor: pointer;
+            border: 1px solid #f1f1f1;
+            position: relative;
+            margin: 0px;
+            font-weight: bold;
+            background: #51a9f18c;
+        }
+        
+        .menu_list .current {
+            background: #51a9f18c;
+        }
+        
+        .menu_nva {
+            line-height: 38px;
+            border-left: 1px solid #51a9f18c;
+            background: #fff;
+            border-right: 1px solid #51a9f18c;
+        }
+        
+        .menu_nva a {
+            display: block;
+            height: 38px;
+            line-height: 38px;
+            padding-left: 38px;
+            color: #777777;
+            background: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #51a9f18c;
+        }
+        
+        .menu_nva a:hover {
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+    <script>
+        L2Dwidget.init({
+            "model": {
+                jsonPath: "https://unpkg.com/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json",
+                "scale": 1
+            },
+            "display": {
+                "position": "left",
+                "width": 90,
+                "height": 120,
+                "hOffset": 0,
+                "vOffset": -20
+            },
+            "mobile": {
+                "show": true,
+                "scale": 0.5
+            },
+            "react": {
+                "opacityDefault": 0.8,
+                "opacityOnHover": 0.1
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">系统管理</h3>
+        <div style="display:block" class="menu_nva">
+            <a href="user">用户管理</a>
+            <a href="">日志管理</a>
+        </div>
+    </div>
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">数据查看</h3>
+        <div style="display:block" class="menu_nva">
+            <a href="汕头p1">汕头</a>
+            <a href="广州p1">广州</a>
+            <a href="北京p1">北京</a>
+            <a href="深圳p1">深圳</a>
+            <a href="上海p1">上海</a>
+            <a href="日本p1">日本</a>
+            <a href="select">搜索</a>
+        </div>
+    </div>
+    <div id="firstpaneDiv" class="menu_list">
+        <h3 class="menu_head current">退出登录</h3>
+        <div style="display:block" class="menu_nva">
+            <a href="login">注销</a>
+        </div>
+    </div>
+    <div id="body1">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>用户名</th>
+                    <th>密码</th>
+                    <th>修改</th>
+                    <th>删除</th>
+                </tr>
+            </thead>
+            {% for i in data %}
+            <tr>
+                <form action="update_user" method="POST">
+                    {% csrf_token %}
+                    <td><input type='text' value={{ i.name }} name='name' id='app1' data-toggle="popover"></td>
+                    <td><input type='text' value={{ i.user_name }} name='username' id='app1'></td>
+                    <td><input type='text' value={{ i.pass_word }} name='password' id='app1'></td>
+                    <td>
+                        <input type="hidden" value={{ i.id }} name="id">
+                        <!-- <input type="submit" value="确定修改"> -->
+                        <input type="submit" value="确定修改" class="btn btn-primary" title="点击修改" data-container="body" data-toggle="popover" data-placement="top" data-content="修改成功">
+    </div>
+    </td>
+    </form>
+    {% if i.name != 'admin' %}
+    <td>
+        <form action="delete_user" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value={{ i.id }} name="id">
+            <input type="submit" value="删除用户" class="btn btn-primary" title="点击删除" data-container="body" data-toggle="popover" data-placement="top" data-content="修改成功">
+        </form>
+    </td>
+    {% else %}
+    <td>勿删</td>
+    {% endif %}
+    </tr>
+    {% endfor %}
+    </table>
+    <form action="insert_user" method="POST">
+        {% csrf_token %} 添加用户请点击
+        <input type="submit" value="添加用户" class="btn btn-primary" title="点击添加" data-container="body" data-toggle="popover" data-placement="top" data-content="修改成功">
+    </form>
+    </div>
+    <!-- script  代码-->
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#firstpaneDiv .menu_nva:eq(0)").show();
+            $("#firstpaneDiv h3.menu_head").click(function() {
+                $(this).addClass("current").next("div.menu_nva").slideToggle(200).siblings("div.menu_nva").slideUp("slow");
+                $(this).siblings().removeClass("current");
+            });
+            $("#secondpane .menu_nva:eq(0)").show();
+            $("#secondpane h3.menu_head").mouseover(function() {
+                $(this).addClass("current").next("div.menu_nva").slideDown(400).siblings("div.menu_nva").slideUp("slow");
+                $(this).siblings().removeClass("current");
+            });
+        });
+    </script>
+</body>
+<style>
+    #body1 {
+        position: absolute;
+        font-size: 24px;
+        left: 230px;
+        margin: 0 auto;
+        margin-top: -550px;
+        padding: 20px 50px;
+        /* width: 300px;
+        height: 200px; */
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    h1 {
+        color: black;
+        text-align: center;
+    }
+    
+    #app {
+        position: absolute;
+        font-size: 24px;
+        left: 230px;
+        margin: 0 auto;
+        margin-top: -250px;
+        padding: 20px 50px;
+        border-radius: 10px;
+        text-align: center;
+    }
+</style>
+
+<style type="text/css">
+    /*表格样式*/
+    
+    table {
+        width: 90%;
+        background: #ccc;
+        margin: 10px auto;
+        border-collapse: collapse;
+        /*border-collapse:collapse合并内外边距(去除表格单元格默认的2个像素内外边距*/
+    }
+    
+    th,
+    td {
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+    
+    th {
+        background: rgb(101, 196, 164);
+        font-weight: normal;
+    }
+    
+    tr {
+        background: rgb(192, 190, 211);
+    }
+    
+    tr:hover {
+        background: #cc0;
+    }
+    
+    td a {
+        color: #06f;
+        text-decoration: none;
+    }
+    
+    td a:hover {
+        color: #06f;
+        text-decoration: underline;
+    }
+</style>
+
+</html>

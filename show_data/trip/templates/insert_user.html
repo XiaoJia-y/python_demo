@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加用户页面</title>
+    <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+    <script>
+        L2Dwidget.init({ "model": { jsonPath:
+            "https://unpkg.com/live2d-widget-model-haruto@1.0.5/assets/haruto.model.json",
+            "scale": 1 }, "display": { "position": "left", "width": 90, "height": 120,
+            "hOffset": 0, "vOffset": -20 }, "mobile": { "show": true, "scale": 0.5 },
+        "react": { "opacityDefault": 0.8, "opacityOnHover": 0.1 } });
+    </script>
+</head>
+
+<body>
+    <h1>添加用户界面</h1>
+    <form action="insert_judge" method="POST">
+        {% csrf_token %} 账号:
+        <input type="text" name="username"><br> 密码:
+        <input type="text" name="password"><br> 名字:
+        <input type="text" name="name"><br>
+        <input type="submit" value="添加"><br> {% if flag == 0 %}
+        <p>请输入完整的用户信息,并且用户名不可重复</p>
+        {% endif %}
+    </form>
+</body>
+<style>
+    body {
+        margin: 0 auto;
+        margin-top: 200px;
+        padding: 20px 50px;
+        width: 400px;
+        height: 300px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    
+    h1 {
+        color: black;
+        text-align: center;
+    }
+    
+    p {
+        color: red;
+        font-size: 20px;
+    }
+</style>
+
+</html>
